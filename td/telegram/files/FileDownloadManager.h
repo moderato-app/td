@@ -67,7 +67,7 @@ class FileDownloadManager final : public Actor {
   unique_ptr<Callback> callback_;
   ActorShared<> parent_;
   std::map<QueryId, NodeId> query_id_to_node_id_;
-  int64 max_download_resource_limit_ = 1 << 21;
+  int64 max_download_resource_limit_ = 1 << 26;
   bool stop_flag_ = false;
 
   void start_up() final;

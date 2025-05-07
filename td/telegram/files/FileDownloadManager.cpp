@@ -22,9 +22,6 @@ FileDownloadManager::FileDownloadManager(unique_ptr<Callback> callback, ActorSha
 }
 
 void FileDownloadManager::start_up() {
-  if (G()->get_option_boolean("is_premium")) {
-    max_download_resource_limit_ *= 8;
-  }
 }
 
 ActorOwn<ResourceManager> &FileDownloadManager::get_download_resource_manager(bool is_small, DcId dc_id) {
