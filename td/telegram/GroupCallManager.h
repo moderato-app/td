@@ -194,6 +194,7 @@ class GroupCallManager final : public Actor {
   struct GroupCallParticipants;
   struct GroupCallRecentSpeakers;
   struct PendingJoinRequest;
+  struct PendingJoinPresentationRequest;
 
   static constexpr int32 RECENT_SPEAKER_TIMEOUT = 60 * 60;
   static constexpr int32 UPDATE_GROUP_CALL_PARTICIPANT_ORDER_TIMEOUT = 10;
@@ -332,10 +333,10 @@ class GroupCallManager final : public Actor {
                                        int32 version, const string &offset, bool is_load, bool is_sync);
 
   static bool update_group_call_participant_can_be_muted(bool can_manage, const GroupCallParticipants *participants,
-                                                         GroupCallParticipant &participant);
+                                                         GroupCallParticipant &participant, bool force_is_admin);
 
   void update_group_call_participants_can_be_muted(InputGroupCallId input_group_call_id, bool can_manage,
-                                                   GroupCallParticipants *participants);
+                                                   GroupCallParticipants *participants, bool force_is_admin);
 
   void update_group_call_participants_order(InputGroupCallId input_group_call_id, bool can_self_unmute,
                                             GroupCallParticipants *participants, const char *source);
@@ -535,7 +536,7 @@ class GroupCallManager final : public Actor {
       load_group_call_queries_;
 
   FlatHashMap<InputGroupCallId, unique_ptr<PendingJoinRequest>, InputGroupCallIdHash> pending_join_requests_;
-  FlatHashMap<InputGroupCallId, unique_ptr<PendingJoinRequest>, InputGroupCallIdHash>
+  FlatHashMap<InputGroupCallId, unique_ptr<PendingJoinPresentationRequest>, InputGroupCallIdHash>
       pending_join_presentation_requests_;
   uint64 join_group_request_generation_ = 0;
 
